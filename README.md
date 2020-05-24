@@ -23,3 +23,20 @@
       - TimeSeries: Shows a time-series plot of the number of crimes over 12 months. The plot can change by specifying the year,  crime type, and borough.
 
       - Pie Chart: Shows three different pie charts that detail the arrest demographics (sex, race, and age) by year, crime type, and borough. 
+   
++ **Data Source:** NYC Open Data
+  
+  https://data.cityofnewyork.us/Public-Safety/NYPD-Arrests-Data-Historic-/8h9b-rp9u/data
+
+Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by [RICH FITZJOHN](http://nicercode.github.io/about/#Team) (@richfitz). This folder is orgarnized as follows.
+
+```
+proj/
+├── app/
+├── lib/
+├── data/
+├── doc/
+└── output/
+```
+
+Please see each subfolder for a README file.
