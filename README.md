@@ -1,4 +1,7 @@
-# Applied Data Science Project: NYC_Arrest_Map [APP LINK](https://saier-gong.shinyapps.io/NYCArrestData/)   
+# NYC_Arrest_Map 
+## Applied Data Science Project: [APP LINK](https://saier-gong.shinyapps.io/NYCArrestData/)  
+   
+![screenshot](doc/crime_map.png)
 
 + **Project summary**: 
   + **The Problem (Motivation):**
@@ -11,7 +14,7 @@
 
   + **The Details:**
 
-Our NYC Arrest Data App features 3 primary functions:
+  Our NYC Arrest Data App features 3 primary functions:
 
 - Map: Using leaflet and the arrest geolocation data, this function can generate two different maps of New York City.
 * Crime Map: Shows locations and specific details of each arrest (date, jurisdiction, crime type, and level of offense) within a specified range of time.  The users can also search for crimes by type.
