@@ -16,10 +16,10 @@
 
   Our NYC Arrest Data App features 3 primary functions:
 
-- Map: Using leaflet and the arrest geolocation data, this function can generate two different maps of New York City.
-* Crime Map: Shows locations and specific details of each arrest (date, jurisdiction, crime type, and level of offense) within a specified range of time.  The users can also search for crimes by type.
-* Heat map: Shows animated density of arrests made each year by crime type. 
+    - Map: Using leaflet and the arrest geolocation data, this function can generate two different maps of New York City.
+     * Crime Map: Shows locations and specific details of each arrest (date, jurisdiction, crime type, and level of offense)   within a specified range of time.  The users can also search for crimes by type.
+     * Heat map: Shows animated density of arrests made each year by crime type. 
 
-- TimeSeries: Shows a time-series plot of the number of crimes over 12 months. The plot can change by specifying the year, crime type, and borough.
+    - TimeSeries: Shows a time-series plot of the number of crimes over 12 months. The plot can change by specifying the year,  crime type, and borough.
 
-- Pie Chart: Shows three different pie charts that detail the arrest demographics (sex, race, and age) by year, crime type, and borough. 
+    - Pie Chart: Shows three different pie charts that detail the arrest demographics (sex, race, and age) by year, crime type, and borough. 
