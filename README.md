@@ -4,15 +4,15 @@
 ![screenshot](doc/crime_map.png)
 
 + **Project summary**: 
-  + **The Problem (Motivation):**
+  + **Problem (Motivation):**
   
   New York City is huge metropolis, attracting people from around the world, and an important issue for many living (or those wanting to live) in NYC is public safety.  Crime occurs all the time: from assaults to murders to grand larceny to drunk driving. Residents, visitors, police officials, and policy makers should be better informed of which areas are more likely to be dangerous, what types of crime are more likely to occur, and what times of the year crime is likely; however, it is not always easy for average people to find this information. It is our hope that this app will remedy this by making information on crime more accessible.  
   
-  + **The Solution:**
+  + **Solution:**
   
   Our shiny app is based on the official NYPD arrest records in New York City of the last 5 years (2013-2018).  The target users for this project, include residents, the NYPD and Policy Makers. Through our app, residents can know where different kinds of criminals appear and are arrested during each year and each borough, so that they can be informed of when and where criminals are more likely to appear and keep away from such areas. For police, given the past data, they can make predictions as to when and where different types of criminals will appear and try their best to catch them and maintain public safety. Policy makers will be able to study demographics of the arrests (age, gender, and race) for different types of crimes, different years, and boroughs and determine whether unfair bias exists based on different boroughs such as racism and gender inequality.
 
-  + **The Details:**
+  + **Details:**
 
   Our NYC Arrest Data App features 3 primary functions:
 
