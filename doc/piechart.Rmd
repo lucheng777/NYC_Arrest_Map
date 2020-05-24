@@ -1,0 +1,192 @@
+```{r}
+library(plotly)
+library(tidyverse)
+library(lubridate)
+library(dplyr)
+library(shiny)
+library(shinydashboard)
+#library(ECharts2Shiny)
+
+load('/Users/chenglu/Desktop/5243/project 2/Spring2020-Project2-group-2/output/arrest_cleaned.RData')
+
+data <- function(dat){
+  arrest.cleaner <- dat %>% 
+  
+  rename_all(tolower) %>%
+  
+  filter (
+    !(age_group !="<18" & age_group != "18-24" &  age_group != "25-44" &  age_group != "45-64" & age_group != "65+")
+) %>% 
+  
+  mutate(year = year(arrest_date)) %>%
+  mutate(year = sort(year, decreasing = T))
+  
+  return(arrest.cleaner)
+}
+
+
+
+pie_chart <- function(y, borough, type){
+  sex <- data(arrest.cleaned) %>% 
+    filter(year == y) %>%
+    filter(arrest_boro == borough) %>%
+    filter(ofns_desc == type) %>%
+    group_by(perp_sex) %>% count()
+  
+  race <- data(arrest.cleaned) %>% 
+    filter(year == y) %>%
+    filter(arrest_boro == borough) %>%
+    filter(ofns_desc == type) %>%
+    group_by(perp_race) %>% count()
+  
+  age <- data(arrest.cleaned) %>% 
+    filter(year == y) %>%
+    filter(arrest_boro == borough) %>%
+    filter(ofns_desc == type) %>%
+    group_by(age_group) %>% count()
+  
+  colors <- c('rgb(211,94,96)', 'rgb(128,133,133)', 'rgb(144,103,167)', 'rgb(171,104,87)', 'rgb(114,147,203)')
+
+  p <- plot_ly() %>%
+    add_pie(data = sex, labels = ~perp_sex, values = ~n,
+            #textposition = 'inside',
+            textinfo = 'label+percent',
+            #insidetextfont = list(color = '#FFFFFF'),
+            # hoverinfo = 'text',
+            # text = ~paste(perp_sex, ":", n),
+            name = "Sex",
+            title = "Perpetrator Sex Distribution Chart",
+            marker = list(colors=colors,
+                          line = list(color = '#FFFFFF', width = 1)),
+            domain = list(x = c(0, 0.4), y = c(0.4, 1))) %>%
+            #domain = list(row = 0, column = 0)) %>%
+    add_pie(data = race, labels = ~perp_race, values = ~ n,
+            #textposition = 'inside',
+            textinfo = 'label+percent',
+            #insidetextfont = list(color = '#FFFFFF'),
+            # hoverinfo = 'text',
+            # text = ~paste(perp_race,":", n),
+            name = "Race",
+            showlegend = T,
+            title = "Perpetrator Race Distribution Chart",
+            marker = list(#colors=colors,
+                          line = list(color = '#FFFFFF', width = 1)),
+            domain = list(x = c(0.25, 0.75), y = c(0, 0.6))) %>%
+            #domain = list(row = 0, column = 1)) %>%
+    add_pie(data = age, labels = ~age_group, values = ~ n,
+            #textposition = 'inside',
+            textinfo = 'label+percent',
+            #insidetextfont = list(color = '#FFFFFF'),
+            # hoverinfo = 'text',
+            # text = ~paste(age_group,":", n),
+            name = "Age",
+            title = "Perpetrator Age Distribution Chart",
+            marker = list(#colors=colors,
+                          line = list(color = '#FFFFFF', width = 1)),
+            domain = list(x = c(0.6, 1), y = c(0.4, 1))) %>%
+            #domain = list(row = 0, column = 2)) %>%
+    layout(title = "Pie Chart Summary of Perpetrator Data", showlegend = F,
+         #grid=list(rows=1, columns=3),
+         xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+         yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+  
+  return(p)
+}
+
+```
+
+
+```{r}
+ui <-
+    dashboardPage(
+      skin = "red",
+      
+      dashboardHeader(title = "Crime in NYC"),
+      
+      dashboardSidebar(
+        sidebarMenu(
+          menuItem("Menu1", tabName = "Menu1"),
+          menuItem("Menu2", tabName = "Menu2"),
+          menuItem("Menu3", tabName = "Menu3"),
+          menuItem("Menu4", tabName = "Menu4")
+        )
+      ),
+      
+      dashboardBody(
+        tabItems(
+          tabItem(tabName = "Menu1",
+                  fluidPage(
+                  )
+          ),
+          
+          tabItem(tabName = "Menu2",
+                  fluidPage(
+                  )
+          ),
+          
+          tabItem(tabName = "Menu3",
+                  fluidPage(
+                    fluidRow(
+                      # year
+                      column(6,
+                             selectInput(inputId = "choose_year",label ="choose a year",
+                                         choices = unique(as.character(data(arrest.cleaned)$year)))
+                        
+                      ),
+                      # borough
+                      column(6,
+                             selectInput(inputId = "choose_borough",label ="choose a borough",
+                                         choices = unique(as.character(data(arrest.cleaned)$arrest_boro)))
+                        
+                      ),
+                      # crime type
+                      column(6,
+                             selectInput(inputId = "choose_type",label ="choose a type",
+                                         choices = unique(as.character(data(arrest.cleaned)$ofns_desc)))
+                        
+                      ),
+                    ),
+                    
+                    fluidRow(
+                      #title="The Pie Chart Sumnmary of the Crime",
+                      #br(),
+                      #div(
+                      plotlyOutput("plot"), align="center"#)
+                              
+                              ),
+                    
+                  
+          ),
+          
+          
+          
+        )
+      )
+    )
+)
+
+```
+
+
+```{r}
+server <- function(input, output){
+  
+  
+ output$plot <- renderPlotly({
+   
+   y<-input$choose_year
+   type<-input$choose_type
+   borough<-input$choose_borough
+   
+   pie_chart(y = y, borough = borough, type = type) 
+   })
+ 
+
+}
+```
+
+
+
+```{r}
+shinyApp(ui = ui, server = server)
+```
